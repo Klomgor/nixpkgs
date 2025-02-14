@@ -40,6 +40,7 @@
   libXext,
   livekit-libwebrtc,
   testers,
+  writableTmpDirAsHomeHook,
 
   withGLES ? false,
   buildRemoteServer ? true,
@@ -95,7 +96,7 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "zed-editor";
-  version = "0.170.2";
+  version = "0.173.8";
 
   outputs = [ "out" ] ++ lib.optional buildRemoteServer "remote_server";
 
@@ -103,7 +104,7 @@ rustPlatform.buildRustPackage rec {
     owner = "zed-industries";
     repo = "zed";
     tag = "v${version}";
-    hash = "sha256-E9p/JHHIQ2nQ6LeFob1tDf6UopeEWL/Z7INstehvfEI=";
+    hash = "sha256-xAmPfCRzgsH5305GTJj9000Jd8AQVyFzI3jVAcTGfYo=";
   };
 
   patches = [
@@ -123,7 +124,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-A9sTR5MCLXskhvJHVGRQ/rSLwOKqhfgJi5zaGsgglL0=";
+  cargoHash = "sha256-4MIfIU4z/Ot6XczmnCXKhE+DiR4vSguStgZLImXQ6Cg=";
 
   nativeBuildInputs =
     [
@@ -207,9 +208,9 @@ rustPlatform.buildRustPackage rec {
     wrapProgram $out/libexec/zed-editor --suffix PATH : ${lib.makeBinPath [ nodejs ]}
   '';
 
-  preCheck = ''
-    export HOME=$(mktemp -d);
-  '';
+  nativeCheckInputs = [
+    writableTmpDirAsHomeHook
+  ];
 
   checkFlags =
     [
@@ -291,16 +292,6 @@ rustPlatform.buildRustPackage rec {
   versionCheckProgram = "${placeholder "out"}/bin/zeditor";
   versionCheckProgramArg = [ "--version" ];
   doInstallCheck = true;
-
-  # The darwin Applications directory is not stripped by default, see
-  # https://github.com/NixOS/nixpkgs/issues/367169
-  # This setting is not platform-guarded as it doesn't do any harm on Linux,
-  # where this directory simply does not exist.
-  stripDebugList = [
-    "bin"
-    "libexec"
-    "Applications"
-  ];
 
   passthru = {
     updateScript = gitUpdater {

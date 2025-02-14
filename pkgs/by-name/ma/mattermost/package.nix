@@ -42,10 +42,18 @@ let
       wrapMattermost =
         server:
         stdenvNoCC.mkDerivation {
-          pname = "${server.pname}-wrapped";
-          inherit (server) version;
           inherit server;
-          inherit (server) webapp;
+
+          # src and npmDeps must be provided for the update script!
+          inherit (server)
+            pname
+            version
+            src
+            goModules
+            npmDeps
+            webapp
+            meta
+            ;
 
           dontUnpack = true;
 
@@ -59,12 +67,7 @@ let
             done
           '';
 
-          passthru = finalPassthru // {
-            inherit server;
-            inherit (server) webapp;
-          };
-
-          inherit (server) meta;
+          passthru = finalPassthru;
         };
       finalPassthru =
         let
