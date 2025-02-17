@@ -355,7 +355,7 @@ with pkgs;
   };
 
   vcpkg-tool = callPackage ../by-name/vc/vcpkg-tool/package.nix {
-    fmt = fmt_10;
+    fmt = fmt_11;
   };
 
   r3ctl = qt5.callPackage ../tools/misc/r3ctl { };
@@ -1080,8 +1080,6 @@ with pkgs;
   supermin = callPackage ../tools/virtualization/supermin {
     ocamlPackages = ocaml-ng.ocamlPackages_4_14;
   };
-
-  tailwindcss = callPackage ../development/tools/tailwindcss { };
 
   ufolint = with python3Packages; toPythonApplication ufolint;
 
@@ -2528,7 +2526,7 @@ with pkgs;
   patool = with python3Packages; toPythonApplication patool;
 
   pocket-casts = callPackage ../by-name/po/pocket-casts/package.nix {
-    electron = electron_32;
+    electron = electron_33;
   };
 
   pueue = darwin.apple_sdk_11_0.callPackage ../applications/misc/pueue {
@@ -2676,8 +2674,6 @@ with pkgs;
 
   beetsPackages = lib.recurseIntoAttrs (callPackage ../tools/audio/beets { });
   inherit (beetsPackages) beets beets-unstable;
-
-  biber-for-tectonic = callPackage ../tools/typesetting/tectonic/biber.nix { };
 
   binlore = callPackage ../development/tools/analysis/binlore { };
 
@@ -3821,8 +3817,6 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) CoreServices Security SystemConfiguration;
   };
 
-  kakoune-cr = callPackage ../tools/misc/kakoune-cr { crystal = crystal_1_2; };
-
   kbs2 = callPackage ../tools/security/kbs2 {
     inherit (darwin.apple_sdk.frameworks) AppKit SystemConfiguration;
   };
@@ -3973,49 +3967,13 @@ with pkgs;
 
   md2pdf = with python3Packages; toPythonApplication md2pdf;
 
-  mdbook-epub = callPackage ../tools/text/mdbook-epub {
-    inherit (darwin.apple_sdk.frameworks) CoreServices;
-  };
-
-  mdbook-graphviz = callPackage ../tools/text/mdbook-graphviz {
-    inherit (darwin.apple_sdk.frameworks) CoreServices;
-  };
-
-  mdbook-katex = callPackage ../tools/text/mdbook-katex {
-    inherit (darwin.apple_sdk.frameworks) CoreServices;
+  mdcat = callPackage ../tools/text/mdcat {
+    inherit (darwin.apple_sdk.frameworks) Security SystemConfiguration;
+    inherit (python3Packages) ansi2html;
   };
 
   mdbook-linkcheck = callPackage ../tools/text/mdbook-linkcheck {
     inherit (darwin.apple_sdk.frameworks) Security;
-  };
-
-  mdbook-mermaid = callPackage ../tools/text/mdbook-mermaid {
-    inherit (darwin.apple_sdk.frameworks) CoreServices;
-  };
-
-  mdbook-pdf = callPackage ../tools/text/mdbook-pdf {
-    inherit (darwin.apple_sdk.frameworks) CoreServices;
-  };
-
-  mdbook-plantuml = callPackage ../tools/text/mdbook-plantuml {
-    inherit (darwin.apple_sdk.frameworks) CoreServices;
-  };
-
-  mdbook-toc = callPackage ../tools/text/mdbook-toc {
-    inherit (darwin.apple_sdk.frameworks) CoreServices;
-  };
-
-  mdbook-admonish = callPackage ../tools/text/mdbook-admonish {
-    inherit (darwin.apple_sdk.frameworks) CoreServices;
-  };
-
-  mdbook-footnote = callPackage ../tools/text/mdbook-footnote {
-    inherit (darwin.apple_sdk.frameworks) CoreServices;
-  };
-
-  mdcat = callPackage ../tools/text/mdcat {
-    inherit (darwin.apple_sdk.frameworks) Security SystemConfiguration;
-    inherit (python3Packages) ansi2html;
   };
 
   medfile = callPackage ../development/libraries/medfile {
@@ -4780,7 +4738,7 @@ with pkgs;
 
   rocket = libsForQt5.callPackage ../tools/graphics/rocket { };
 
-  rtabmap = libsForQt5.callPackage ../applications/video/rtabmap/default.nix {
+  rtabmap = callPackage ../by-name/rt/rtabmap/package.nix {
     pcl = pcl.override { vtk = vtkWithQt5; };
   };
 
@@ -6459,8 +6417,6 @@ with pkgs;
     jdk_headless = openjdk8_headless; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
 
-  mint = callPackage ../development/compilers/mint { crystal = crystal_1_9; };
-
   mitscheme = callPackage ../development/compilers/mit-scheme {
     texinfo = texinfo6;
   };
@@ -6992,7 +6948,7 @@ with pkgs;
   };
 
   inherit (beam.interpreters)
-    erlang erlang_27 erlang_26 erlang_25
+    erlang erlang_28 erlang_27 erlang_26 erlang_25
     elixir elixir_1_18 elixir_1_17 elixir_1_16 elixir_1_15 elixir_1_14
     elixir-ls;
 
@@ -7010,10 +6966,14 @@ with pkgs;
   beam25Packages = recurseIntoAttrs beam.packages.erlang_25;
   beam26Packages = recurseIntoAttrs beam.packages.erlang_26;
   beam27Packages = recurseIntoAttrs beam.packages.erlang_27;
+  # 28 is pre-release
+  beam28Packages = dontRecurseIntoAttrs beam.packages.erlang_28;
 
   beamMinimal25Packages = recurseIntoAttrs beam_minimal.packages.erlang_25;
   beamMinimal26Packages = recurseIntoAttrs beam_minimal.packages.erlang_26;
   beamMinimal27Packages = recurseIntoAttrs beam_minimal.packages.erlang_27;
+  # 28 is pre-release
+  beamMinimal28Packages = dontRecurseIntoAttrs beam_minimal.packages.erlang_28;
 
   erlang_language_platform = callPackage ../by-name/er/erlang-language-platform/package.nix { };
 
@@ -10219,10 +10179,6 @@ with pkgs;
     buildPythonPackage buildPythonApplication setuptools pycsdr pydigiham;
   };
 
-  pcl = libsForQt5.callPackage ../development/libraries/pcl {
-    inherit (darwin.apple_sdk_11_0.frameworks) Cocoa AGL OpenGL;
-  };
-
   pcre = callPackage ../development/libraries/pcre { };
   pcre16 = res.pcre.override { variant = "pcre16"; };
   # pcre32 seems unused
@@ -10686,12 +10642,6 @@ with pkgs;
   tclap_1_2 = callPackage ../development/libraries/tclap/1.2.nix { };
 
   tclap_1_4 = callPackage ../development/libraries/tclap/1.4.nix { };
-
-  tectonic = callPackage ../tools/typesetting/tectonic/wrapper.nix { };
-
-  tectonic-unwrapped = callPackage ../tools/typesetting/tectonic {
-    harfbuzz = harfbuzzFull;
-  };
 
   termbench-pro = callPackage ../by-name/te/termbench-pro/package.nix {
     stdenv = if stdenv.hostPlatform.isDarwin then llvmPackages_17.stdenv else stdenv;
@@ -11312,9 +11262,6 @@ with pkgs;
 
   grafana = callPackage ../servers/monitoring/grafana { };
   grafanaPlugins = callPackages ../servers/monitoring/grafana/plugins { };
-
-  grafana-loki = callPackage ../servers/monitoring/loki { };
-  promtail = callPackage ../servers/monitoring/loki/promtail.nix { };
 
   hasura-graphql-engine = haskell.lib.compose.justStaticExecutables haskell.packages.ghc810.graphql-engine;
 
@@ -16061,8 +16008,6 @@ with pkgs;
 
   doomseeker = qt5.callPackage ../games/doom-ports/doomseeker { };
 
-  doomrunner = qt5.callPackage ../games/doom-ports/doomrunner { };
-
   enyo-launcher = libsForQt5.callPackage ../games/doom-ports/enyo-launcher { };
 
   slade = callPackage ../games/doom-ports/slade {
@@ -17076,15 +17021,6 @@ with pkgs;
   xflr5 = libsForQt5.callPackage ../applications/science/physics/xflr5 { };
 
   ### SCIENCE/PROGRAMMING
-
-  ### SCIENCE/GEOLOGY
-  pflotran = callPackage ../by-name/pf/pflotran/package.nix {
-    petsc = petsc.override {
-      hdf5-support = true;
-      hdf5 = hdf5-fortran-mpi;
-      petsc-optimized = true;
-    };
-  };
 
   ### SCIENCE/LOGIC
 
@@ -18287,10 +18223,6 @@ with pkgs;
 
   cagebreak = callPackage ../applications/window-managers/cagebreak {
     wlroots = wlroots_0_17;
-  };
-
-  ldid = callPackage ../development/tools/ldid {
-    inherit (darwin.apple_sdk.frameworks) CoreFoundation Security;
   };
 
   zrythm = callPackage ../applications/audio/zrythm {
