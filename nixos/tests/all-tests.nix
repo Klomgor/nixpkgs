@@ -198,6 +198,7 @@ in
   amd-sev = runTest ./amd-sev.nix;
   angie-api = runTest ./angie-api.nix;
   anki-sync-server = runTest ./anki-sync-server.nix;
+  anubis = runTest ./anubis.nix;
   anuko-time-tracker = runTest ./anuko-time-tracker.nix;
   apcupsd = runTest ./apcupsd.nix;
   apfs = runTest ./apfs.nix;
@@ -713,6 +714,7 @@ in
   languagetool = handleTest ./languagetool.nix { };
   lanraragi = handleTest ./lanraragi.nix { };
   latestKernel.login = handleTest ./login.nix { latestKernel = true; };
+  lavalink = runTest ./lavalink.nix;
   leaps = handleTest ./leaps.nix { };
   lemmy = handleTest ./lemmy.nix { };
   libinput = handleTest ./libinput.nix { };
@@ -1079,6 +1081,7 @@ in
     handleTest ./postfix-raise-smtpd-tls-security-level.nix
       { };
   postfixadmin = handleTest ./postfixadmin.nix { };
+  postgres-websockets = runTest ./postgres-websockets.nix;
   postgresql = handleTest ./postgresql { };
   postgrest = runTest ./postgrest.nix;
   powerdns = handleTest ./powerdns.nix { };
@@ -1443,6 +1446,7 @@ in
   webhook = runTest ./webhook.nix;
   weblate = handleTest ./web-apps/weblate.nix { };
   whisparr = handleTest ./whisparr.nix { };
+  whoami = runTest ./whoami.nix;
   whoogle-search = handleTest ./whoogle-search.nix { };
   wiki-js = runTest ./wiki-js.nix;
   wine = handleTest ./wine.nix { };

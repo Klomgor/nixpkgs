@@ -5400,6 +5400,12 @@
     githubId = 64467514;
     name = "Daniel Krywult";
   };
+  danilobuerger = {
+    email = "info@danilobuerger.de";
+    github = "danilobuerger";
+    githubId = 996231;
+    name = "Danilo Bürger";
+  };
   daniyalsuri6 = {
     email = "daniyal.suri@gmail.com";
     github = "daniyalsuri6";
@@ -5592,7 +5598,7 @@
     name = "David Sánchez";
   };
   dav-wolff = {
-    email = "dav-wolff@outlook.com";
+    email = "nixpkgs@dav.dev";
     github = "dav-wolff";
     githubId = 130931508;
     name = "David Wolff";
@@ -6904,6 +6910,12 @@
     github = "eilvelia";
     githubId = 10106819;
     name = "eilvelia";
+  };
+  ejiektpobehuk = {
+    email = "oss@ejiek.id";
+    github = "ejiektpobehuk";
+    githubId = 7649041;
+    name = "Vlad Petrov";
   };
   eken = {
     email = "edvin.kallstrom@protonmail.com";
@@ -15640,6 +15652,12 @@
     github = "michaelshmitty";
     githubId = 114845;
   };
+  michaelvanstraten = {
+    name = "Michael van Straten";
+    email = "michael@vanstraten.de";
+    github = "michaelvanstraten";
+    githubId = 50352631;
+  };
   michalrus = {
     email = "m@michalrus.com";
     github = "michalrus";
@@ -16452,6 +16470,12 @@
     githubId = 220262;
     name = "Ion Mudreac";
   };
+  MulliganSecurity = {
+    email = "mulligansecurity@riseup.net";
+    github = "MulliganSecurity";
+    githubId = 196982523;
+    name = "MulliganSecurity";
+  };
   multisn8 = {
     email = "all-things-nix@multisamplednight.com";
     github = "MultisampledNight";
@@ -16678,6 +16702,13 @@
     github = "nanotwerp";
     githubId = 17240342;
     name = "Nano Twerpus";
+  };
+  nanoyaki = {
+    name = "Hana Kretzer";
+    email = "hanakretzer@gmail.com";
+    github = "nanoyaki";
+    githubId = 144328493;
+    keys = [ { fingerprint = "D89F 440C 6CD7 4753 090F  EC7A 4682 C5CB 4D9D EA3C"; } ];
   };
   naphta = {
     github = "naphta";

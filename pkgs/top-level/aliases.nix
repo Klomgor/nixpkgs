@@ -533,6 +533,7 @@ mapAliases {
   ec2_api_tools = throw "'ec2_api_tools' has been renamed to/replaced by 'ec2-api-tools'"; # Converted to throw 2024-10-17
   ec2-utils = amazon-ec2-utils; # Added 2022-02-01
 
+  ecryptfs-helper = throw "'ecryptfs-helper' has been removed, for filesystem-level encryption, use fscrypt"; # Added 2025-04-08
   edUnstable = throw "edUnstable was removed; use ed instead"; # Added 2024-07-01
   edgedb = throw "edgedb replaced to gel because of change of upstream"; # Added 2025-02-24
   elasticsearch7Plugins = elasticsearchPlugins;
@@ -1050,6 +1051,7 @@ mapAliases {
   loco-cli = loco; # Added 2025-02-24
   loop = throw "'loop' has been removed due to lack of upstream maintenance"; # Added 2025-01-25
   luna-icons = throw "luna-icons has been removed as it was removed upstream"; # Added 2024-10-29
+  lucene = throw "lucene has been removed since it was both wildly out of date and was not even built properly for 4 years"; # Added 2025-04-10
   lv_img_conv = throw "'lv_img_conv' has been removed from nixpkgs as it is broken"; # Added 2024-06-18
   lxd = lib.warnOnInstantiate "lxd has been renamed to lxd-lts" lxd-lts; # Added 2024-04-01
   lxd-unwrapped = lib.warnOnInstantiate "lxd-unwrapped has been renamed to lxd-unwrapped-lts" lxd-unwrapped-lts; # Added 2024-04-01
