@@ -160,6 +160,7 @@
   ./programs/arp-scan.nix
   ./programs/atop.nix
   ./programs/ausweisapp.nix
+  ./programs/autoenv.nix
   ./programs/autojump.nix
   ./programs/bandwhich.nix
   ./programs/bash-my-aws.nix
@@ -751,6 +752,7 @@
   ./services/matrix/appservice-discord.nix
   ./services/matrix/appservice-irc.nix
   ./services/matrix/conduit.nix
+  ./services/matrix/continuwuity.nix
   ./services/matrix/dendrite.nix
   ./services/matrix/hebbot.nix
   ./services/matrix/hookshot.nix
@@ -1608,6 +1610,7 @@
   ./services/web-apps/nostr-rs-relay.nix
   ./services/web-apps/ocis.nix
   ./services/web-apps/olivetin.nix
+  ./services/web-apps/oncall.nix
   ./services/web-apps/onlyoffice.nix
   ./services/web-apps/open-web-calendar.nix
   ./services/web-apps/openvscode-server.nix

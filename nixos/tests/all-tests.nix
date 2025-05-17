@@ -618,6 +618,7 @@ in
   odoo = handleTest ./odoo.nix { };
   odoo17 = handleTest ./odoo.nix { package = pkgs.odoo17; };
   odoo16 = handleTest ./odoo.nix { package = pkgs.odoo16; };
+  oncall = runTest ./web-apps/oncall.nix;
   # 9pnet_virtio used to mount /nix partition doesn't support
   # hibernation. This test happens to work on x86_64-linux but
   # not on other platforms.
@@ -780,6 +781,7 @@ in
   matrix-alertmanager = runTest ./matrix/matrix-alertmanager.nix;
   matrix-appservice-irc = runTest ./matrix/appservice-irc.nix;
   matrix-conduit = handleTest ./matrix/conduit.nix { };
+  matrix-continuwuity = runTest ./matrix/continuwuity.nix;
   matrix-synapse = handleTest ./matrix/synapse.nix { };
   matrix-synapse-workers = handleTest ./matrix/synapse-workers.nix { };
   mautrix-meta-postgres = handleTest ./matrix/mautrix-meta-postgres.nix { };
@@ -1272,6 +1274,7 @@ in
   syncthing-no-settings = handleTest ./syncthing-no-settings.nix { };
   syncthing-init = handleTest ./syncthing-init.nix { };
   syncthing-many-devices = handleTest ./syncthing-many-devices.nix { };
+  syncthing-folders = runTest ./syncthing-folders.nix;
   syncthing-relay = handleTest ./syncthing-relay.nix { };
   sysinit-reactivation = runTest ./sysinit-reactivation.nix;
   systemd = handleTest ./systemd.nix { };
@@ -1422,10 +1425,6 @@ in
   varnish60 = runTest {
     imports = [ ./varnish.nix ];
     _module.args.package = pkgs.varnish60;
-  };
-  varnish76 = runTest {
-    imports = [ ./varnish.nix ];
-    _module.args.package = pkgs.varnish76;
   };
   varnish77 = runTest {
     imports = [ ./varnish.nix ];

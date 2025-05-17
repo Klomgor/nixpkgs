@@ -296,6 +296,16 @@ in
     dependencies = [ self.plenary-nvim ];
   };
 
+  blink-cmp-npm-nvim = super.blink-cmp-npm-nvim.overrideAttrs {
+    nvimSkipModules = [
+      # Test files
+      "blink-cmp-npm.utils.compute_meta_spec"
+      "blink-cmp-npm.utils.generate_doc_spec"
+      "blink-cmp-npm.utils.ignore_version_spec"
+      "blink-cmp-npm.utils.semantic_sort_spec"
+    ];
+  };
+
   blink-emoji-nvim = super.blink-emoji-nvim.overrideAttrs {
     dependencies = [ self.blink-cmp ];
   };
@@ -618,6 +628,15 @@ in
       "codecompanion.actions.init"
       # Test
       "minimal"
+    ];
+  };
+
+  codecompanion-history-nvim = super.codecompanion-history-nvim.overrideAttrs {
+    dependencies = with self; [
+      # transitive dependency for codecompanion-nvim
+      plenary-nvim
+
+      codecompanion-nvim
     ];
   };
 
@@ -1292,6 +1311,13 @@ in
       "go.snips"
       "snips.all"
       "snips.go"
+    ];
+  };
+
+  GPTModels-nvim = super.GPTModels-nvim.overrideAttrs {
+    dependencies = with self; [
+      nui-nvim
+      telescope-nvim
     ];
   };
 
