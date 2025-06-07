@@ -17,18 +17,18 @@ assert lib.asserts.assertMsg (
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "synapse-admin-etkecc";
-  version = "0.10.4-etke40";
+  version = "0.11.1-etke43";
 
   src = fetchFromGitHub {
     owner = "etkecc";
     repo = "synapse-admin";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-QIOQ25K/QCpSAz3HMOADSIVb3iqfdNCNmWrn7xD0ytU=";
+    hash = "sha256-mubONaT4qnbPlnYY15UtHGEp45k5mIxWt1shHRdwwTA=";
   };
 
   yarnOfflineCache = fetchYarnDeps {
     yarnLock = finalAttrs.src + "/yarn.lock";
-    hash = "sha256-YQZN9tj0zGnC4gmTvHM32mdaOw5RFuUL2ZKd9/8GNZA=";
+    hash = "sha256-WFE2mtyK3xBOVIgJ0ODsv1C0pjpGdBM3+TtIiZUpj58=";
   };
 
   nativeBuildInputs = [

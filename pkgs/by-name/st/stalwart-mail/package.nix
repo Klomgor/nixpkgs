@@ -18,19 +18,19 @@
   stalwartEnterprise ? false,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "stalwart-mail" + (lib.optionalString stalwartEnterprise "-enterprise");
-  version = "0.11.8";
+  version = "0.12.2";
 
   src = fetchFromGitHub {
     owner = "stalwartlabs";
-    repo = "mail-server";
-    tag = "v${version}";
-    hash = "sha256-VqGosbSQxNeOS+kGtvXAmz6vyz5mJlXvKZM57B1Xue4=";
+    repo = "stalwart";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-P19jeEzFE8Gu6hqHZJiPoJ70r+zOmzOpEwfFqPQczZY=";
   };
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-iheURWxO0cOvO+FV01l2Vmo0B+S2mXzue6mx3gapftQ=";
+  cargoHash = "sha256-WVvDapCA9pTgOtPpbsK78u2AC2hUfo3sOejZ6pJSlQk=";
 
   nativeBuildInputs = [
     pkg-config
@@ -45,7 +45,7 @@ rustPlatform.buildRustPackage rec {
     zstd
   ] ++ lib.optionals (stdenv.hostPlatform.isLinux && withFoundationdb) [ foundationdb ];
 
-  # Issue: https://github.com/stalwartlabs/mail-server/issues/1104
+  # Issue: https://github.com/stalwartlabs/stalwart/issues/1104
   buildNoDefaultFeatures = true;
   buildFeatures =
     [
@@ -116,6 +116,10 @@ rustPlatform.buildRustPackage rec {
     "--skip=smtp::queue::retry::queue_retry"
     # Missing store type. Try running `STORE=<store_type> cargo test`: NotPresent
     "--skip=store::store_tests"
+    # Missing store type. Try running `STORE=<store_type> cargo test`: NotPresent
+    "--skip=cluster::cluster_tests"
+    # Missing store type. Try running `STORE=<store_type> cargo test`: NotPresent
+    "--skip=webdav::webdav_tests"
     # thread 'config::parser::tests::toml_parse' panicked at crates/utils/src/config/parser.rs:463:58:
     # called `Result::unwrap()` on an `Err` value: "Expected ['\\n'] but found '!' in value at line 70."
     "--skip=config::parser::tests::toml_parse"
@@ -147,6 +151,9 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = !(stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
 
+  # Allow network access during tests on Darwin/macOS
+  __darwinAllowLocalNetworking = true;
+
   passthru = {
     inherit rocksdb; # make used rocksdb version available (e.g., for backup scripts)
     webadmin = callPackage ./webadmin.nix { };
@@ -169,6 +176,7 @@ rustPlatform.buildRustPackage rec {
         }
       ];
 
+    mainProgram = "stalwart";
     maintainers = with lib.maintainers; [
       happysalada
       onny
@@ -176,4 +184,4 @@ rustPlatform.buildRustPackage rec {
       pandapip1
     ];
   };
-}
+})

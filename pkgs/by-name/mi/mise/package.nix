@@ -21,17 +21,17 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "mise";
-  version = "2025.5.3";
+  version = "2025.6.0";
 
   src = fetchFromGitHub {
     owner = "jdx";
     repo = "mise";
     rev = "v${version}";
-    hash = "sha256-BNGjkWBw2RKHmZH5HYy7AGALaVLStXK91ilw9K8iO0U=";
+    hash = "sha256-vlzId9SjxcSQ6DDw0H68zi7xHd2Nn3bPSG+rsR7UEBs=";
   };
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-1bbj66+h9gnXqpf55cprqzZ5Ld44dsfET3FldututR4=";
+  cargoHash = "sha256-YVeF+2qJuOMhNQLEpH3P0ufqHU0sBFRHN5yXZGTJEQA=";
 
   nativeBuildInputs = [
     installShellFiles
@@ -89,6 +89,9 @@ rustPlatform.buildRustPackage rec {
       --bash ./completions/mise.bash \
       --fish ./completions/mise.fish \
       --zsh ./completions/_mise
+
+    mkdir -p $out/lib/mise
+    touch $out/lib/mise/.disable-self-update
   '';
 
   passthru = {
