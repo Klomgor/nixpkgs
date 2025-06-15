@@ -404,6 +404,8 @@ builtins.intersectAttrs super {
   # The curl executable is required for withApplication tests.
   warp = addTestToolDepend pkgs.curl super.warp;
 
+  lz4-frame-conduit = addTestToolDepends [ pkgs.lz4 ] super.lz4-frame-conduit;
+
   safe-exceptions = overrideCabal (drv: {
     # Fix strictDeps build error "could not execute: hspec-discover"
     testToolDepends = drv.testToolDepends or [ ] ++ [ self.hspec-discover ];
@@ -824,6 +826,11 @@ builtins.intersectAttrs super {
       pkgs.yices
     ];
   }) super.crucible-symio;
+
+  # Test suite requires z3 to be in PATH
+  crucible-llvm = addTestToolDepends [
+    pkgs.z3
+  ] super.crucible-llvm;
 
   # Compile manpages (which are in RST and are compiled with Sphinx).
   futhark =
@@ -1519,6 +1526,9 @@ builtins.intersectAttrs super {
     '';
   }) super.jacinda;
 
+  # Needs network access
+  pinecone = dontCheck super.pinecone;
+
   # Smoke test can't be executed in sandbox
   # https://github.com/georgefst/evdev/issues/25
   evdev = overrideCabal (drv: {
@@ -1699,9 +1709,14 @@ builtins.intersectAttrs super {
 
   postgresql-libpq-configure = overrideCabal (drv: {
     librarySystemDepends = (drv.librarySystemDepends or [ ]) ++ [ pkgs.libpq ];
+    libraryToolDepends = (drv.libraryToolDepends or [ ]) ++ [ pkgs.libpq.pg_config ];
   }) super.postgresql-libpq-configure;
 
   postgresql-libpq-pkgconfig = addPkgconfigDepend pkgs.libpq super.postgresql-libpq-pkgconfig;
+
+  HDBC-postgresql = overrideCabal (drv: {
+    libraryToolDepends = (drv.libraryToolDepends or [ ]) ++ [ pkgs.libpq.pg_config ];
+  }) super.HDBC-postgresql;
 
   # Test failure is related to a GHC implementation detail of primitives and doesn't
   # cause actual problems in dependent packages, see https://github.com/lehins/pvar/issues/4
